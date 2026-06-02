@@ -1,0 +1,8 @@
+.env
+data/
+frontend/node_modules/
+frontend/dist/
+backend/conversorj.exe
+backend/conversorj
+backend/conversorj.db
+backend/tmp/
