@@ -73,7 +73,7 @@ func (c *Converter) Convert(ctx context.Context, id, url, format string) (Result
 func (c *Converter) baseArgs() []string {
 	args := []string{"--js-runtimes", "node"}
 	if path := os.Getenv("YTDLP_COOKIES_FILE"); path != "" {
-		if _, err := os.Stat(path); err == nil {
+		if info, err := os.Stat(path); err == nil && info.Size() > 0 {
 			args = append(args, "--cookies", path)
 		}
 	}
