@@ -33,9 +33,8 @@ func New(tmpDir string) (*Converter, error) {
 
 // CheckDuration retorna a duração em segundos sem baixar o vídeo.
 func (c *Converter) CheckDuration(ctx context.Context, url string) (float64, error) {
-	cmd := exec.CommandContext(ctx, "yt-dlp",
-		"--dump-json", "--no-playlist", "--no-warnings", "--skip-download", url,
-	)
+	args := append(c.cookiesArgs(), "--dump-json", "--no-playlist", "--no-warnings", "--skip-download", url)
+	cmd := exec.CommandContext(ctx, "yt-dlp", args...)
 	out, err := cmd.Output()
 	if err != nil {
 		return 0, fmt.Errorf("yt-dlp metadata: %w", err)
@@ -54,7 +53,7 @@ func (c *Converter) Convert(ctx context.Context, id, url, format string) (Result
 		return Result{}, fmt.Errorf("criar dir de saída: %w", err)
 	}
 
-	args := buildArgs(url, format, dir)
+	args := append(c.cookiesArgs(), buildArgs(url, format, dir)...)
 	cmd := exec.CommandContext(ctx, "yt-dlp", args...)
 	if out, err := cmd.CombinedOutput(); err != nil {
 		os.RemoveAll(dir)
@@ -69,6 +68,15 @@ func (c *Converter) Convert(ctx context.Context, id, url, format string) (Result
 
 	filename := entries[0].Name()
 	return Result{Filename: filename, FilePath: filepath.Join(dir, filename)}, nil
+}
+
+func (c *Converter) cookiesArgs() []string {
+	if path := os.Getenv("YTDLP_COOKIES_FILE"); path != "" {
+		if _, err := os.Stat(path); err == nil {
+			return []string{"--cookies", path}
+		}
+	}
+	return nil
 }
 
 func buildArgs(url, format, dir string) []string {
