@@ -5,7 +5,7 @@ services:
     volumes:
       - ./data/db:/app/data
       - ./data/tmp:/app/tmp
-      - ./data/cookies.txt:/app/cookies.txt:ro
+      - ./data/cookies.txt:/app/cookies.txt
     environment:
       - TZ=America/Sao_Paulo
       - YTDLP_COOKIES_FILE=/app/cookies.txt

@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -131,6 +132,7 @@ func (h *Handler) convert(w http.ResponseWriter, r *http.Request) {
 	id := randomID()
 	result, err := h.conv.Convert(ctx, id, req.URL, req.Format)
 	if err != nil {
+		log.Printf("conversion error: %v", err)
 		jsonErr(w, http.StatusInternalServerError, "conversion_failed",
 			"Erro ao converter o vídeo. Tente novamente.")
 		return
