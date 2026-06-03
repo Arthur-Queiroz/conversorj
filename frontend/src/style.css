@@ -337,6 +337,12 @@ body {
   .wpanel { padding: 20px; }
 }
 @media (max-width: 540px) {
-  .wstage { padding: 32px 16px; justify-content: flex-start; }
+  .wstage { padding: 24px 16px; justify-content: flex-start; }
+  .wcard { padding: 20px 16px; border-radius: 18px; }
+  .wbrand { margin-bottom: 16px; }
+  .brand-name { font-size: 23px; }
+  .seg button { font-size: 13.5px; padding: 11px 10px; gap: 7px; }
   .fmt { grid-template-columns: 1fr; }
+  .wp-fmt { font-size: 22px; }
+  .file { gap: 10px; }
 }
