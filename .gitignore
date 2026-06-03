@@ -6,3 +6,9 @@ backend/conversorj.exe
 backend/conversorj
 backend/conversorj.db
 backend/tmp/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
