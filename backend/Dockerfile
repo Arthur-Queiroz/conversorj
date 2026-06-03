@@ -7,7 +7,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o conversorj .
 
 FROM alpine:3.20
-RUN apk add --no-cache ffmpeg python3 curl ca-certificates tzdata
+RUN apk add --no-cache ffmpeg python3 curl ca-certificates tzdata nodejs
 RUN curl -fsSL https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp \
         -o /usr/local/bin/yt-dlp \
     && chmod +x /usr/local/bin/yt-dlp
